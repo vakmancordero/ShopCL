@@ -85,6 +85,7 @@ public class ShopController implements Initializable {
         List<Product> products = this.shop.getList(Product.class);
         
         this.autoComplete = new AutoComplete(products);
+        this.autoComplete.setPromptText("Buscar producto");
         
         ObservableList<Node> children = this.toolBar.getChildren();
         children.set(0, this.autoComplete);

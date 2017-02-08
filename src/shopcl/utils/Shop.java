@@ -74,8 +74,6 @@ public class Shop {
             
             session.close();
             
-            this.sessionFactory.close();
-            
         }
         
         return  user != null ? 
@@ -117,15 +115,13 @@ public class Shop {
             
             session.close();
             
-            this.sessionFactory.close();
-            
         }
         
         return list;
         
     }
     
-    public boolean save(Object object) {
+    public boolean saveOrUpdate(Object object) {
         
         this.sessionFactory = HibernateUtil.getSessionFactory();
         
@@ -149,14 +145,45 @@ public class Shop {
             
         } finally {
             
-            session.close();
             session.flush();
-            
-            this.sessionFactory.close();
+            session.close();
             
         }
         
         return saved;
+        
+    }
+    
+    public boolean delete(Object object) {
+        
+        this.sessionFactory = HibernateUtil.getSessionFactory();
+        
+        Session session = getSession();
+        Transaction transaction = session.beginTransaction();
+        
+        boolean deleted = false;
+        
+        try {
+            
+            session.delete(object);
+            transaction.commit();
+            
+            deleted = true;
+             
+        } catch (HibernateException ex) {
+            
+            this.rollback(transaction);
+            
+            deleted = false;
+            
+        } finally {
+            
+            session.flush();
+            session.close();
+            
+        }
+        
+        return deleted;
         
     }
     

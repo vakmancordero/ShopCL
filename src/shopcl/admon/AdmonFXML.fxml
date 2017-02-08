@@ -6,69 +6,133 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="371.0" prefWidth="614.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shopcl.admon.AdmonController">
+<AnchorPane id="AnchorPane" prefHeight="457.0" prefWidth="678.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shopcl.admon.AdmonController">
    <children>
-      <SplitPane dividerPositions="0.35784313725490197" layoutX="109.0" layoutY="14.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.41272189349112426" layoutX="109.0" layoutY="14.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView fx:id="usersTV" layoutX="14.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <columns>
-                      <TableColumn fx:id="username" prefWidth="-1.0" text="Nombre de usuario" />
-                      <TableColumn fx:id="date" prefWidth="-1.0" text="Fecha de creación" />
+                    <TableView fx:id="usersTV" layoutX="14.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <columns>
+                            <TableColumn fx:id="username" prefWidth="122.0" text="Nombre">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="username" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn fx:id="date" prefWidth="153.0" text="Fecha de creación">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="date" />
+                                </cellValueFactory>
+                            </TableColumn>
                     </columns>
+                     <contextMenu>
+                        <ContextMenu>
+                          <items>
+                            <MenuItem mnemonicParsing="false" onAction="#context" text="Crear" />
+                              <MenuItem mnemonicParsing="false" onAction="#context" text="Editar" />
+                              <MenuItem mnemonicParsing="false" onAction="#context" text="Eliminar" />
+                          </items>
+                        </ContextMenu>
+                     </contextMenu>
                   </TableView>
+                  <TextField layoutX="34.0" layoutY="364.0" promptText="Buscar usuario..." AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" />
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Accordion layoutX="14.0" layoutY="14.0" prefHeight="75.0" prefWidth="252.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
+                  <Accordion fx:id="accordion" layoutX="14.0" layoutY="14.0" prefHeight="75.0" prefWidth="252.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
                     <panes>
-                      <TitledPane animated="false" text="Crear un nuevo usuario">
+                      <TitledPane fx:id="createPane" animated="false" text="Crear un nuevo usuario" textFill="#22264db9">
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <VBox layoutX="47.6" layoutY="69.6" prefHeight="138.0" prefWidth="189.0" spacing="15.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="50.0">
+                                    <VBox layoutX="48.6" layoutY="69.6" prefHeight="193.0" prefWidth="289.0" spacing="15.0" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="60.0">
                                        <children>
                                           <VBox prefHeight="42.0" prefWidth="171.0">
                                              <children>
                                                 <Label text="Nombre de usuario:" />
-                                                <TextField fx:id="usernameTF" promptText="Username" />
+                                                <TextField fx:id="usernameTF" promptText="Introducir el nombre de usuario" />
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="42.0" prefWidth="171.0">
                                              <children>
                                                 <Label text="Contraseña:" />
-                                                <PasswordField fx:id="passwordPF" promptText="Password" />
+                                                <PasswordField fx:id="passwordPF" promptText="Introducir una contraseña" />
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="42.0" prefWidth="171.0">
                                              <children>
                                                 <Label text="Contraseña:" />
-                                                <PasswordField fx:id="rePasswordPF" promptText="Repetir password" />
+                                                <PasswordField fx:id="rePasswordPF" promptText="Repetir contraseña" />
                                              </children>
                                           </VBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#save" prefHeight="25.0" prefWidth="301.0" text="Finalizar" />
+                                             </children>
+                                          </HBox>
                                        </children>
                                     </VBox>
-                                    <Label alignment="CENTER" layoutX="17.0" layoutY="22.0" text="Datos del usuario:" textFill="#0000009f" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0">
+                                    <Label alignment="TOP_LEFT" layoutX="49.6" layoutY="25.0" prefHeight="25.0" prefWidth="148.0" text="Datos del usuario:" textFill="#0000009f" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0">
                                        <font>
                                           <Font name="System Bold Italic" size="16.0" />
                                        </font>
                                     </Label>
-                                    <Button layoutX="48.0" layoutY="229.0" mnemonicParsing="false" onAction="#create" prefHeight="25.0" prefWidth="167.0" text="Finalizar" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
                                  </children>
                               </AnchorPane>
                         </content>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
                       </TitledPane>
-                      <TitledPane animated="false" text="Editar usuario">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </TitledPane>
+                        <TitledPane fx:id="editPane" animated="false" text="Editar un usuario existente" textFill="#316600c2">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox layoutX="48.6" layoutY="69.6" prefHeight="193.0" prefWidth="289.0" spacing="15.0" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="60.0">
+                                       <children>
+                                          <VBox prefHeight="42.0" prefWidth="171.0">
+                                             <children>
+                                                <Label text="Nombre de usuario:" />
+                                                <TextField fx:id="editUsernameTF" promptText="Introducir el nombre de usuario" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="42.0" prefWidth="171.0">
+                                             <children>
+                                                <Label text="Contraseña:" />
+                                                <PasswordField fx:id="editPasswordPF" promptText="Introducir una contraseña" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="42.0" prefWidth="171.0">
+                                             <children>
+                                                <Label text="Contraseña:" />
+                                                <PasswordField fx:id="editRePasswordPF" promptText="Repetir contraseña" />
+                                             </children>
+                                          </VBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#update" prefHeight="25.0" prefWidth="301.0" text="Finalizar" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <Label alignment="TOP_LEFT" layoutX="79.6" layoutY="25.0" prefHeight="25.0" prefWidth="259.0" text="Nuevos datos del usuario:" textFill="#0000009f" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="8.0">
+                                       <font>
+                                          <Font name="System Bold Italic" size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </TitledPane>
                     </panes>
                   </Accordion>
-                  <Label alignment="CENTER" layoutX="101.0" layoutY="6.0" text="Panel de control" textFill="#0000009f" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
+                  <Label alignment="CENTER" layoutX="101.0" layoutY="6.0" text="Manejador de usuarios" textFill="#0000009f" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>

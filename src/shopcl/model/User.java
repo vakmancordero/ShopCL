@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -14,7 +15,7 @@ import java.util.Objects;
 
 @Entity
 @Table (name = "user")
-public class User implements Serializable {
+public class User implements Serializable, Comparable<User> {
     
     @Id
     private int id;
@@ -25,6 +26,9 @@ public class User implements Serializable {
     @Column
     private String password;
     
+    @Column
+    private Date date;
+    
     public User() {
         
     }
@@ -32,6 +36,7 @@ public class User implements Serializable {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
+        this.date = new Date();
     }
 
     public User(int id, String username, String password) {
@@ -64,6 +69,14 @@ public class User implements Serializable {
         this.password = password;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
@@ -92,6 +105,16 @@ public class User implements Serializable {
             return false;
         }
         return Objects.equals(this.password, other.password);
+    }
+
+    @Override
+    public String toString() {
+        return this.username + " - " + this.date;
+    }
+    
+    @Override
+    public int compareTo(User user) {
+        return this.username.compareTo(user.getUsername());
     }
     
 }

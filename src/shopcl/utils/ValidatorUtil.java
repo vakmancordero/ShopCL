@@ -11,7 +11,7 @@ import javafx.scene.control.TextField;
  */
 public class ValidatorUtil {
     
-    private Node[] nodes;
+    private final Node[] nodes;
     
     public ValidatorUtil(Node... nodes) {
         this.nodes = nodes;
@@ -52,6 +52,34 @@ public class ValidatorUtil {
         }
         
         return true;
+    }
+    
+    public void clearFields() {
+        
+        for (Node node : nodes) {
+            
+            String className = node.getClass().getSimpleName();
+            
+            if (className.equals("TextField")) {
+                
+                TextField textField = (TextField) node;
+                
+                textField.clear();
+                
+            } else {
+                
+                if (className.equals("PasswordField")) {
+                    
+                    PasswordField passwordField = (PasswordField) node;
+                    
+                    passwordField.clear();
+                    
+                }
+                
+            }
+            
+        }
+        
     }
     
     public Alert emptyFields() {

@@ -14,8 +14,8 @@ public class ShopCL extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        //Parent root = FXMLLoader.load(getClass().getResource("/shopcl/login/LoginFXML.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("/shopcl/ShopFXML.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/shopcl/login/LoginFXML.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("/shopcl/ShopFXML.fxml"));
         
         Scene scene = new Scene(root);
         

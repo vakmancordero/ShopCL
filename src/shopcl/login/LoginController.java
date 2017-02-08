@@ -3,6 +3,9 @@ package shopcl.login;
 import java.util.ResourceBundle;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
@@ -20,8 +23,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import shopcl.model.User;
 
+import shopcl.model.User;
 import shopcl.utils.Shop;
 import shopcl.utils.ValidatorUtil;
 
@@ -41,10 +44,18 @@ public class LoginController implements Initializable {
     
     private Shop shop;
     
-    private static final User myUser;
+    public static ArrayList<User> users;
     
     static {
-        myUser = new User("vaksfk", "jaqart_");
+        
+        LoginController.users = new ArrayList<>(
+                Arrays.asList(
+                        new User("vaksfk", "jaqart_"),
+                        new User("root", "jeje"),
+                        new User("arturh", "cordero")
+                )
+        );
+        
     }
     
     @Override
@@ -54,7 +65,9 @@ public class LoginController implements Initializable {
         
         this.validator = new ValidatorUtil(userTF, passwordPF);
         
-    } 
+        Collections.sort(LoginController.users);
+        
+    }
     
     @FXML
     private void login(ActionEvent event) throws IOException {
@@ -64,24 +77,26 @@ public class LoginController implements Initializable {
         
         if (this.validator.validateFields()) {
             
-            if (this.shop.login(user, password)) {
+            User loginUser = new User(user, password);
+            
+            int binarySearch = Collections.binarySearch(LoginController.users, loginUser);
+            
+            if (binarySearch >= 0) {
                 
-                User loginUser = new User(user, password);
+                openFXML("/shopcl/admon/AdmonFXML.fxml", "Administrador");
                 
-                if (loginUser.equals(myUser)) {
-                    
-                    openFXML("/shopcl/admon/AdmonFXML.fxml", "Administrador");
-                    
-                } else {
+            } else {
+                
+                if (this.shop.login(user, password)) {
                     
                     openFXML("/shopcl/ShopFXML.fxml", "Tienda");
                     
+                    this.close(event);
+
+                } else {
+                    notFound();
                 }
                 
-                this.close(event);
-                
-            } else {
-                notFound();
             }
             
         } else {
