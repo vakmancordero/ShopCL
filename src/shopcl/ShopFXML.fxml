@@ -1,14 +1,190 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shopcl.ShopFXMLController">
-    <children>
-        <Button layoutX="126" layoutY="90" text="Click Me!" onAction="#handleButtonAction" fx:id="button" />
-        <Label layoutX="126" layoutY="120" minHeight="16" minWidth="69" fx:id="label" />
-    </children>
+<AnchorPane id="AnchorPane" prefHeight="519.0" prefWidth="848.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shopcl.ShopController">
+   <children>
+      <MenuBar layoutX="150.0" layoutY="75.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Archivo">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Cerrar" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Herramientras">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Generador de reportes" />
+                  <MenuItem mnemonicParsing="false" text="Administrador de productos" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Ayuda">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Acerca de" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <AnchorPane layoutX="84.0" layoutY="40.0" prefHeight="59.0" prefWidth="541.0" style="-fx-content-display: top; -fx-border-insets: 2 0 0 0; -fx-border-color: -fx-text-box-border; -fx-border-width: 2;" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0">
+         <children>
+            <VBox layoutX="124.0" layoutY="20.0" prefHeight="59.0" prefWidth="294.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+               <children>
+                  <HBox prefHeight="16.0" prefWidth="180.0" spacing="5.0">
+                     <children>
+                        <Label text="Número de venta:">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="salesNumberLabel" text="15">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="2.0" right="2.0" />
+                     </padding>
+                  </HBox>
+                  <HBox prefHeight="16.0" prefWidth="180.0" spacing="5.0">
+                     <children>
+                        <Label fx:id="hourLabel" text="15:20 hrs">
+                           <font>
+                              <Font name="System Italic" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label text="-">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="addressLabel" text="16a Sur Poniente #1720">
+                           <font>
+                              <Font name="System Italic" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets left="2.0" right="2.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox layoutX="134.0" layoutY="30.0" prefHeight="59.0" prefWidth="251.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox alignment="TOP_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="16.0" prefWidth="180.0" spacing="5.0">
+                     <children>
+                        <Label text="Martes, 31 de Enero de 2017" textAlignment="RIGHT">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <padding>
+                        <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="37.0" layoutY="233.0" prefHeight="59.0" prefWidth="541.0" style="-fx-content-display: top; -fx-border-insets: 2 0 0 0; -fx-border-color: -fx-text-box-border; -fx-border-width: 2;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="120.0">
+         <children>
+            <VBox layoutX="176.0" layoutY="110.0" prefHeight="30.0" prefWidth="294.0" spacing="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <HBox prefHeight="16.0" prefWidth="180.0" spacing="5.0">
+                     <children>
+                        <Label text="Cuenta:">
+                           <font>
+                              <Font name="System Italic" size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+            <TableView fx:id="ordersTV" layoutX="46.0" layoutY="128.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="68.0">
+                <columns>
+                    <TableColumn prefWidth="75.0" text="No">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="no" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="75.0" text="ID">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="id" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="142.0" text="Nombre del producto">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="product" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="104.0" text="Precio">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="price" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn prefWidth="108.0" text="Cantidad">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="quantity" />
+                        </cellValueFactory>
+                    </TableColumn>
+                    <TableColumn fx:id="editTC" prefWidth="110.0" text="Editar" />
+                    <TableColumn fx:id="removeTC" prefWidth="91.0" text="Remover" />
+                    <TableColumn prefWidth="90.0" text="Subtotal">
+                        <cellValueFactory>
+                            <PropertyValueFactory property="subtotal" />
+                        </cellValueFactory>
+                    </TableColumn>
+                </columns>
+            </TableView>
+            <ToolBar layoutX="94.0" layoutY="339.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <items>
+                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="269.0" text="Finalizar venta" textFill="#000000ab">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font></Button>
+                  <Separator orientation="VERTICAL" prefHeight="20.0" />
+                  <Label text="Total:" textFill="#000000a7">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="116.0" promptText="Cantidad">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </TextField>
+               </items>
+            </ToolBar>
+            <HBox fx:id="toolBar" alignment="CENTER_LEFT" layoutX="4.0" layoutY="38.0" prefHeight="30.0" prefWidth="804.0" spacing="4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+               <children>
+                  <TextField id="productName" fx:id="productNameTF" prefHeight="25.0" prefWidth="260.0" promptText="Nombre del producto" />
+                  <TextField id="quantity" fx:id="quantityTF" prefHeight="25.0" prefWidth="139.0" promptText="Cantidad" />
+                  <Button fx:id="actionButton" mnemonicParsing="false" onAction="#actionOrder" prefHeight="25.0" prefWidth="136.0" text="Agregar" />
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelEdit" prefHeight="25.0" prefWidth="136.0" text="Cancelar" visible="false" />
+               </children>
+               <padding>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </padding>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>

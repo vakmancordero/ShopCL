@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package shopcl;
 
 import javafx.application.Application;
@@ -13,16 +8,18 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author VakSF
+ * @author Arturh
  */
 public class ShopCL extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("ShopFXML.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("/shopcl/login/LoginFXML.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/shopcl/ShopFXML.fxml"));
         
         Scene scene = new Scene(root);
         
+        stage.setTitle("Iniciar sesión");
         stage.setScene(scene);
         stage.show();
     }
