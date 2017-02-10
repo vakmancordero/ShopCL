@@ -4,6 +4,8 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -44,12 +46,13 @@ public class AdmonController implements Initializable {
     private ObservableList<User> usersList;
     
     @FXML
-    private TextField usernameTF;
+    private TextField usernameTF, editUsernameTF;
     
     @FXML
-    private PasswordField passwordPF, rePasswordPF;
+    private PasswordField passwordPF, rePasswordPF, 
+            editPasswordPF ,editRePasswordPF;
     
-    private ValidatorUtil validator;
+    private ValidatorUtil createValidator, updateValidator;
     
     private Shop shop;
     
@@ -58,14 +61,25 @@ public class AdmonController implements Initializable {
         
         this.shop = new Shop();
         
-        this.validator = new ValidatorUtil(
+        this.initValidators();
+        this.initTV();
+        this.initAll();
+        
+    }
+    
+    private void initValidators() {
+        
+        this.createValidator = new ValidatorUtil(
                 usernameTF,
                 passwordPF,
                 rePasswordPF
         );
         
-        this.initTV();
-        this.initAll();
+        this.updateValidator = new ValidatorUtil(
+                editUsernameTF,
+                editPasswordPF,
+                editRePasswordPF
+        );
         
     }
     
@@ -82,18 +96,45 @@ public class AdmonController implements Initializable {
             this.usersTV.getSelectionModel().selectFirst();
         }
         
+        this.usersTV.getSelectionModel().selectedItemProperty()
+            .addListener(($obs, $old, $new) -> {
+                
+                if (this.accordion.getExpandedPane().equals(this.editPane)) {
+                    
+                    this.updateEditFields($new);
+                    
+                }
+            });
+        
     }
     
     private void initAll() {
         
-        this.accordion.setExpandedPane(createPane);
+        this.accordion.setExpandedPane(this.createPane);
         
+        this.accordion.expandedPaneProperty().addListener((
+            observable, oldValue, newValue) -> {
+            
+                if (newValue != null) {
+                    
+                    String value = newValue.getText();
+                    
+                    if (value.equalsIgnoreCase("crear un nuevo usuario")) {
+                        
+                        this.createValidator.clearFields();
+                        this.updateValidator.clearFields();
+                        
+                    }
+                    
+                }
+                
+            });
     }
     
     @FXML
     private void save() {
         
-        if (this.validator.validateFields()) {
+        if (this.createValidator.validateFields()) {
             
             String username = this.usernameTF.getText();
             String password = this.passwordPF.getText();
@@ -107,12 +148,12 @@ public class AdmonController implements Initializable {
 
                 if (binarySearch < 0) {
                     
-                    boolean saved = this.shop.saveOrUpdate(user);
+                    boolean saved = this.shop.save(user);
                     
                     if (saved) {
 
                         this.usersList.add(user);
-                        this.validator.clearFields();
+                        this.createValidator.clearFields();
 
                         new Alert(
                                 AlertType.INFORMATION,
@@ -149,13 +190,19 @@ public class AdmonController implements Initializable {
             }
             
         } else {
-            this.validator.emptyFields().showAndWait();
+            this.createValidator.emptyFields().showAndWait();
         }
         
     }
     
     @FXML
     private void update() {
+        
+        if (this.updateValidator.validateFields()) {
+            
+        }
+        
+        User user = this.getSelected(this.usersTV);
         
     }
     
@@ -171,11 +218,15 @@ public class AdmonController implements Initializable {
             this.accordion.setExpandedPane(this.createPane);
 
         } else {
-
+            
             if (item.equals("Editar")) {
                 
                 this.accordion.setExpandedPane(this.editPane);
-
+                
+                User user = this.getSelected(this.usersTV);
+                
+                this.updateEditFields(user);
+                
             } else {
 
                 if (item.equals("Eliminar")) {
@@ -192,11 +243,11 @@ public class AdmonController implements Initializable {
     
     private void deleteUser() {
         
-        User user = this.usersTV.getSelectionModel().getSelectedItem();
+        User user = this.getSelected(this.usersTV);
         
         if (user != null) {
             
-            Alert confirmation = new Alert(AlertType.WARNING);
+            Alert confirmation = new Alert(AlertType.CONFIRMATION);
             
             confirmation.setTitle("Confirmacion de eliminación");
             confirmation.setHeaderText("Está seguro?");
@@ -226,5 +277,21 @@ public class AdmonController implements Initializable {
         }
         
     }
+    
+    private void updateEditFields(User user) {
+        
+        if (user != null) {
+            
+            this.editUsernameTF.setText(user.getUsername());
+            this.editPasswordPF.setText(user.getPassword());
+            this.editRePasswordPF.setText(user.getPassword());
+            
+        }
+        
+    }
+    
+    private <T> T getSelected(TableView<T> tableView) {
+        return tableView.getSelectionModel().getSelectedItem();
+    } 
     
 }

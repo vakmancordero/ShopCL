@@ -18,9 +18,7 @@ import java.util.Objects;
 public class User implements Serializable, Comparable<User> {
     
     @Id
-    private int id;
-    
-    @Column
+    @Column(name = "username", nullable = false)
     private String username;
     
     @Column
@@ -38,21 +36,7 @@ public class User implements Serializable, Comparable<User> {
         this.password = password;
         this.date = new Date();
     }
-
-    public User(int id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    
     public String getUsername() {
         return username;
     }
@@ -79,10 +63,9 @@ public class User implements Serializable, Comparable<User> {
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 89 * hash + this.id;
-        hash = 89 * hash + Objects.hashCode(this.username);
-        hash = 89 * hash + Objects.hashCode(this.password);
+        int hash = 5;
+        hash = 97 * hash + Objects.hashCode(this.username);
+        hash = 97 * hash + Objects.hashCode(this.password);
         return hash;
     }
 
@@ -98,15 +81,15 @@ public class User implements Serializable, Comparable<User> {
             return false;
         }
         final User other = (User) obj;
-        if (this.id != other.id) {
-            return false;
-        }
         if (!Objects.equals(this.username, other.username)) {
             return false;
         }
-        return Objects.equals(this.password, other.password);
+        if (!Objects.equals(this.password, other.password)) {
+            return false;
+        }
+        return true;
     }
-
+    
     @Override
     public String toString() {
         return this.username + " - " + this.date;

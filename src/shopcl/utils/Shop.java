@@ -121,7 +121,7 @@ public class Shop {
         
     }
     
-    public boolean saveOrUpdate(Object object) {
+    public boolean save(Object object) {
         
         this.sessionFactory = HibernateUtil.getSessionFactory();
         
@@ -132,7 +132,7 @@ public class Shop {
         
         try {
             
-            session.saveOrUpdate(object);
+            session.save(object);
             transaction.commit();
             
             saved = true;
@@ -145,7 +145,6 @@ public class Shop {
             
         } finally {
             
-            session.flush();
             session.close();
             
         }
