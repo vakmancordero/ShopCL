@@ -153,6 +153,38 @@ public class Shop {
         
     }
     
+    public boolean update(Object object) {
+        
+        this.sessionFactory = HibernateUtil.getSessionFactory();
+        
+        Session session = getSession();
+        Transaction transaction = session.beginTransaction();
+        
+        boolean updated = false;
+        
+        try {
+            
+            session.saveOrUpdate(object);
+            transaction.commit();
+            
+            updated = true;
+             
+        } catch (HibernateException ex) {
+            
+            this.rollback(transaction);
+            
+            updated = false;
+            
+        } finally {
+            
+            session.close();
+            
+        }
+        
+        return updated;
+        
+    }
+    
     public boolean delete(Object object) {
         
         this.sessionFactory = HibernateUtil.getSessionFactory();

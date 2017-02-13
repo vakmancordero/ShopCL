@@ -200,9 +200,69 @@ public class AdmonController implements Initializable {
         
         if (this.updateValidator.validateFields()) {
             
+            String username = this.editUsernameTF.getText();
+            String password = this.editPasswordPF.getText();
+            String rePassword = this.editRePasswordPF.getText();
+            
+            if (password.equals(rePassword)) {
+                
+                User toSearchUser = new User(username, password);
+                
+                int binarySearch = Collections.binarySearch(LoginController.users, toSearchUser);
+
+                if (binarySearch < 0) {
+                    
+                    User user = this.getSelected(this.usersTV);
+                
+                    user.setUsername(username);
+                    user.setPassword(password);
+                    
+                    boolean updated = this.shop.update(user);
+                    
+                    if (updated) {
+
+                        this.usersTV.refresh();                        
+                        this.createValidator.clearFields();
+
+                        new Alert(
+                                AlertType.INFORMATION,
+                                "Usuario editado correctamente"
+                        ).show();
+
+                    } else {
+
+                        new Alert(
+                                AlertType.ERROR,
+                                "No se ha podido almacenar el usuario, "
+                              + "por favor intente con diferente nombre de usuario"
+                        ).show();
+
+                    }
+
+                } else {
+
+                    new Alert(
+                            AlertType.ERROR,
+                            "Error, intente con otro usuario, "
+                          + "el nombre de usuario no puede ser utilizado."
+                    ).show();
+
+                }
+                
+            } else {
+                
+                new Alert(
+                        AlertType.ERROR,
+                        "Error, las contraseñas no coinciden, vuelva intentarlo"
+                ).show();
+                
+            }
+            
+        } else {
+            
+            this.updateValidator.emptyFields().showAndWait();
+            
         }
-        
-        User user = this.getSelected(this.usersTV);
         
     }
     

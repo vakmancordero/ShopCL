@@ -1,12 +1,16 @@
 package shopcl.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.io.Serializable;
 import java.util.Date;
+import java.io.Serializable;
 import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Column;
+
+import javax.persistence.IdClass;
+import javax.persistence.Id;
+
 
 /**
  *
@@ -18,17 +22,18 @@ import java.util.Objects;
 public class User implements Serializable, Comparable<User> {
     
     @Id
-    @Column(name = "username", nullable = false)
-    private String username;
+    private int id;
     
     @Column
-    private String password;
+    private String username;
     
     @Column
     private Date date;
     
+    @Column
+    private String password;
+
     public User() {
-        
     }
 
     public User(String username, String password) {
@@ -36,21 +41,21 @@ public class User implements Serializable, Comparable<User> {
         this.password = password;
         this.date = new Date();
     }
-    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public Date getDate() {
@@ -61,11 +66,19 @@ public class User implements Serializable, Comparable<User> {
         this.date = date;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
+        int hash = 3;
+        hash = 97 * hash + this.id;
         hash = 97 * hash + Objects.hashCode(this.username);
-        hash = 97 * hash + Objects.hashCode(this.password);
         return hash;
     }
 
@@ -81,23 +94,28 @@ public class User implements Serializable, Comparable<User> {
             return false;
         }
         final User other = (User) obj;
-        if (!Objects.equals(this.username, other.username)) {
+        if (this.id != other.id) {
             return false;
         }
-        if (!Objects.equals(this.password, other.password)) {
+        if (!Objects.equals(this.username, other.username)) {
             return false;
         }
         return true;
     }
     
     @Override
-    public String toString() {
-        return this.username + " - " + this.date;
-    }
-    
-    @Override
     public int compareTo(User user) {
-        return this.username.compareTo(user.getUsername());
+        
+        int result = this.username.compareTo(user.getUsername());
+        
+        result += this.password.compareTo(user.getPassword());
+        
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return this.username + " - " + this.getDate().toString();
     }
     
 }
