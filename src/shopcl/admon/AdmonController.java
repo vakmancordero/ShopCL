@@ -99,9 +99,19 @@ public class AdmonController implements Initializable {
         this.usersTV.getSelectionModel().selectedItemProperty()
             .addListener(($obs, $old, $new) -> {
                 
-                if (this.accordion.getExpandedPane().equals(this.editPane)) {
-                    
-                    this.updateEditFields($new);
+                TitledPane expandedPane = this.accordion.getExpandedPane();
+                
+                if (expandedPane != null) {
+                
+                    if (expandedPane.equals(this.editPane)) {                 
+                        
+                        if ($new != null) {
+                        
+                            this.updateEditFields($new);
+
+                        }
+                        
+                    }
                     
                 }
             });
@@ -124,6 +134,22 @@ public class AdmonController implements Initializable {
                         this.createValidator.clearFields();
                         this.updateValidator.clearFields();
                         
+                    } else {
+                        
+                        if (value.equalsIgnoreCase("editar un usuario existente")) {
+                            
+                            this.createValidator.clearFields();
+                            
+                            if (!this.usersList.isEmpty()) {
+                                
+                                User user = this.getSelected(usersTV);
+                                
+                                this.updateEditFields(user);
+                                        
+                            }
+                            
+                        }
+                        
                     }
                     
                 }
@@ -145,6 +171,8 @@ public class AdmonController implements Initializable {
                 User user = new User(username, password);
                 
                 int binarySearch = Collections.binarySearch(LoginController.users, user);
+                
+                System.out.println("Save = " + binarySearch);
 
                 if (binarySearch < 0) {
                     

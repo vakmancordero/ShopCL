@@ -7,10 +7,7 @@ import java.util.Objects;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Column;
-
-import javax.persistence.IdClass;
 import javax.persistence.Id;
-
 
 /**
  *
@@ -107,8 +104,6 @@ public class User implements Serializable, Comparable<User> {
     public int compareTo(User user) {
         
         int result = this.username.compareTo(user.getUsername());
-        
-        result += this.password.compareTo(user.getPassword());
         
         return result;
     }

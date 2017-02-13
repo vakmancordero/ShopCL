@@ -6,8 +6,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.FXML;
@@ -23,10 +26,12 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.WindowEvent;
 
 import shopcl.model.User;
 import shopcl.utils.Shop;
 import shopcl.utils.ValidatorUtil;
+import shopcl.utils.comparator.LoginUserComparator;
 
 /**
  *
@@ -51,8 +56,8 @@ public class LoginController implements Initializable {
         LoginController.users = new ArrayList<>(
                 Arrays.asList(
                         new User("vaksfk", "jaqart_"),
-                        new User("root", "jeje"),
-                        new User("arturh", "cordero")
+                        new User("root", "jejeasdasdasd"),
+                        new User("arturh", "corderoasdasasd")
                 )
         );
         
@@ -79,17 +84,21 @@ public class LoginController implements Initializable {
             
             User loginUser = new User(user, password);
             
-            int binarySearch = Collections.binarySearch(LoginController.users, loginUser);
+            int binarySearch = Collections.binarySearch(
+                    LoginController.users, loginUser, new LoginUserComparator()
+            );
             
             if (binarySearch >= 0) {
                 
-                openFXML("/shopcl/admon/AdmonFXML.fxml", "Administrador");
+                openFXML("/shopcl/admon/AdmonFXML.fxml", "Administrador", true);
+                
+                this.close(event);
                 
             } else {
                 
                 if (this.shop.login(user, password)) {
                     
-                    openFXML("/shopcl/ShopFXML.fxml", "Tienda");
+                    openFXML("/shopcl/ShopFXML.fxml", "Tienda", true);
                     
                     this.close(event);
 
@@ -119,12 +128,28 @@ public class LoginController implements Initializable {
         ((Node) event.getSource()).getScene().getWindow().hide();
     }
     
-    private void openFXML(String fxml, String title) throws IOException {
+    private void openFXML(String fxml, String title, boolean flag) throws IOException {
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml)); 
        
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene((Pane) loader.load()));
+        
+        if (flag) {
+            
+            stage.setOnCloseRequest((WindowEvent event) -> {
+                
+                try {
+                    
+                    openFXML("/shopcl/login/LoginFXML.fxml", "Login", false);
+                    
+                } catch (IOException ex) {
+                    
+                }
+                
+            });
+            
+        }
         
         stage.setTitle(title);
         stage.show();
