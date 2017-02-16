@@ -1,32 +1,32 @@
 package shopcl.admon;
 
 import java.net.URL;
+import javafx.fxml.Initializable;
+import javafx.fxml.FXML;
+
 import java.util.Collections;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
+
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
-
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+
 import shopcl.login.LoginController;
 
 import shopcl.model.User;
 import shopcl.utils.Shop;
 import shopcl.utils.ValidatorUtil;
-
 
 /**
  *
@@ -380,6 +380,6 @@ public class AdmonController implements Initializable {
     
     private <T> T getSelected(TableView<T> tableView) {
         return tableView.getSelectionModel().getSelectedItem();
-    } 
+    }
     
 }

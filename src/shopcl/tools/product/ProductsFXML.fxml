@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,63 +8,123 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="532.0" prefWidth="908.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shopcl.tools.product.ProductsController">
+<AnchorPane id="AnchorPane" prefHeight="557.0" prefWidth="875.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shopcl.tools.product.ProductsController">
    <children>
-      <SplitPane dividerPositions="0.5165562913907285" layoutX="109.0" layoutY="14.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+      <SplitPane dividerPositions="0.5326460481099656" layoutX="119.0" layoutY="24.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <items>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView fx:id="usersTV" layoutX="14.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <columns>
-                      <TableColumn prefWidth="49.0" text="ID" />
-                      <TableColumn minWidth="0.0" prefWidth="157.0" text="Nombre" />
-                    <TableColumn minWidth="0.0" text="Precio" />
-                        <TableColumn minWidth="0.0" prefWidth="177.0" text="Descripción" />
+                  <TableView fx:id="usersTV" layoutX="14.0" layoutY="25.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <columns>
+                        <TableColumn prefWidth="49.0" text="ID" />
+                        <TableColumn minWidth="0.0" prefWidth="160.0" text="Nombre" />
+                        <TableColumn minWidth="0.0" prefWidth="90.0" text="Precio" />
+                        <TableColumn minWidth="0.0" prefWidth="164.0" text="Descripción" />
                     </columns>
+                     <contextMenu>
+                        <ContextMenu>
+                           <items>
+                              <MenuItem mnemonicParsing="false" onAction="#context" text="Crear" />
+                              <MenuItem mnemonicParsing="false" onAction="#context" text="Editar" />
+                              <MenuItem mnemonicParsing="false" onAction="#context" text="Eliminar" />
+                           </items>
+                        </ContextMenu>
+                     </contextMenu>
                   </TableView>
+                  <TextField layoutX="34.0" layoutY="364.0" promptText="Buscar usuario..." AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="3.0" />
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Accordion layoutX="14.0" layoutY="14.0" prefHeight="75.0" prefWidth="252.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
-                    <panes>
-                      <TitledPane animated="false" text="Crear un producto">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <Accordion fx:id="accordion" layoutX="14.0" layoutY="14.0" prefHeight="75.0" prefWidth="252.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
+                     <panes>
+                        <TitledPane fx:id="createPane" animated="false" text="Crear un producto nuevo" textFill="#000000ba">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <VBox layoutX="47.6" layoutY="69.6" prefHeight="138.0" prefWidth="189.0" spacing="15.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="50.0">
+                                    <VBox layoutX="48.6" layoutY="69.6" prefHeight="193.0" prefWidth="289.0" spacing="15.0" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="60.0">
                                        <children>
                                           <VBox prefHeight="42.0" prefWidth="171.0">
                                              <children>
-                                                <Label text="Nombre:" />
-                                                <TextField fx:id="usernameTF" promptText="Nombre del producto" />
+                                                <Label text="Nombre del producto:" />
+                                                <TextField fx:id="usernameTF" promptText="Introducir el nombre del producto" />
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="42.0" prefWidth="171.0">
                                              <children>
                                                 <Label text="Precio:" />
-                                                <PasswordField fx:id="passwordPF" promptText="Precio del producto" />
+                                                <TextField fx:id="usernameTF1" promptText="Introducir el precio del producto" />
                                              </children>
                                           </VBox>
                                           <VBox prefHeight="42.0" prefWidth="171.0">
                                              <children>
                                                 <Label text="Descripción:" />
-                                                <PasswordField fx:id="rePasswordPF" promptText="Descripción del producto" />
+                                                <TextField fx:id="usernameTF2" promptText="Introducir breve descripción del producto" />
                                              </children>
                                           </VBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#save" prefHeight="25.0" prefWidth="301.0" text="Finalizar" />
+                                             </children>
+                                          </HBox>
                                        </children>
                                     </VBox>
-                                    <Label alignment="CENTER" layoutX="17.0" layoutY="22.0" text="Datos del producto:" textFill="#0000009f" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="10.0">
+                                    <Label alignment="TOP_LEFT" layoutX="49.6" layoutY="25.0" prefHeight="25.0" prefWidth="148.0" text="Datos del producto:" textFill="#0000009f" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="0.0">
                                        <font>
                                           <Font name="System Bold Italic" size="16.0" />
                                        </font>
                                     </Label>
-                                    <Button layoutX="48.0" layoutY="229.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="167.0" text="Finalizar" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" />
                                  </children>
                               </AnchorPane>
-                        </content>
-                      </TitledPane>
-                    </panes>
+                           </content>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </TitledPane>
+                        <TitledPane fx:id="editPane" animated="false" text="Editar un producto existente" textFill="#000000c2">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox layoutX="48.6" layoutY="69.6" prefHeight="193.0" prefWidth="289.0" spacing="15.0" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="60.0">
+                                       <children>
+                                          <VBox prefHeight="42.0" prefWidth="171.0">
+                                             <children>
+                                                <Label text="Nombre de usuario:" />
+                                                <TextField fx:id="editUsernameTF" promptText="Introducir el nombre de usuario" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="42.0" prefWidth="171.0">
+                                             <children>
+                                                <Label text="Contraseña:" />
+                                                <PasswordField fx:id="editPasswordPF" promptText="Introducir una contraseña" />
+                                             </children>
+                                          </VBox>
+                                          <VBox prefHeight="42.0" prefWidth="171.0">
+                                             <children>
+                                                <Label text="Contraseña:" />
+                                                <PasswordField fx:id="editRePasswordPF" promptText="Repetir contraseña" />
+                                             </children>
+                                          </VBox>
+                                          <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                                             <children>
+                                                <Button mnemonicParsing="false" onAction="#update" prefHeight="25.0" prefWidth="301.0" text="Finalizar" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                    <Label alignment="TOP_LEFT" layoutX="79.6" layoutY="25.0" prefHeight="25.0" prefWidth="259.0" text="Nuevos datos del producto:" textFill="#0000009f" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="8.0">
+                                       <font>
+                                          <Font name="System Bold Italic" size="16.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </TitledPane>
+                     </panes>
                   </Accordion>
                   <Label alignment="CENTER" layoutX="101.0" layoutY="6.0" text="Manejador de productos" textFill="#0000009f" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                      <font>
@@ -72,7 +133,7 @@
                   </Label>
                </children>
             </AnchorPane>
-        </items>
+         </items>
       </SplitPane>
    </children>
 </AnchorPane>
